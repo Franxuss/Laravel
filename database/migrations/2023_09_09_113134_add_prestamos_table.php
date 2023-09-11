@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('prestamos', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->integer('user_id');
-            $table->integer('book_id');
-            $table->date('fecha_prestamo');
-            $table->date('fecha_devoludion')->nullable();
+        Schema::table('prestamos', function(Blueprint $table){
+            $table->string('estado');
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('prestamos');
+        Schema::table('prestamos', function(Blueprint $table){
+            $table->dropColumn('estado');
+        });
     }
 };
