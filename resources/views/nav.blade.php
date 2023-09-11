@@ -8,8 +8,8 @@
         </div>
         <div class="hidden lg:flex lg:gap-x-12">
             <a href="/" class="text-sm font-semibold leading-6 text-gray-900">Home</a>
-            <a href="/showLibros" class="text-sm font-semibold leading-6 text-gray-900">Mostrar Libros</a>
             <a href="/formAddLibro" class="text-sm font-semibold leading-6 text-gray-900">Añadir Libro</a>
+            <a href="/showLibros" class="text-sm font-semibold leading-6 text-gray-900">Mostrar Libros</a>
             <a href="/showPrestamos" class="text-sm font-semibold leading-6 text-gray-900">Mostrar Prestamos</a>
         </div>
     </nav>
