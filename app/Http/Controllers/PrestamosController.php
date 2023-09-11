@@ -49,6 +49,13 @@ class PrestamosController extends Controller
         return view('prestamos\showPrestamos')->with('prestamos', $prestamos);
     }
 
+    public function showPrestamo($id){
+        $prestamo = Prestamos::FindPrestamoID($id);
+        $libro_id = $prestamo->book_id;
+        $libro = Libros::FindLibroID($libro_id);
+        return view('prestamos\showPrestamo', ['libro' => $libro, 'prestamo'=> $prestamo]);
+    }
+
     public function badPrestamo(){
         return view('alertBad');
     }

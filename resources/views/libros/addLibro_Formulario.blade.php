@@ -14,28 +14,28 @@
               <div class="col-span-full">
                 <label for="titulo" class="block text-sm font-medium leading-6 text-gray-900">Titulo</label>
                 <div class="mt-2">
-                  <input type="text" name="titulo" id="titulo" autocomplete="titulo" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  <input type="text" name="titulo" id="titulo" autocomplete="titulo" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
                 </div>
               </div>
 
               <div class="col-span-full">
                 <label for="autor" class="block text-sm font-medium leading-6 text-gray-900">Autor</label>
                 <div class="mt-2">
-                  <input type="text" name="autor" id="autor" autocomplete="autor" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  <input type="text" name="autor" id="autor" autocomplete="autor" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
                 </div>
               </div>
 
               <div class="col-span-full">
                 <label for="año" class="block text-sm font-medium leading-6 text-gray-900">Año</label>
                 <div class="mt-2">
-                  <input type="number" name="año" id="año" autocomplete="año" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  <input type="number" name="año" id="año" autocomplete="año" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
                 </div>
               </div>
 
               <div class="col-span-full">
                 <label for="genero" class="block text-sm font-medium leading-6 text-gray-900">Género</label>
                 <div class="mt-2">
-                  <input type="text" name="genero" id="genero" autocomplete="genero" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  <input type="text" name="genero" id="genero" autocomplete="genero" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
                 </div>
               </div>
 

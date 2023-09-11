@@ -34,4 +34,5 @@ Route::get('/deletePrestamo/{id}', [PrestamosController::class,'deletePrestamo']
 
 Route::get('/addPrestamo/{id}', [PrestamosController::class,'addPrestamo'])->name('addPrestamo');
 Route::get('/showPrestamos', [PrestamosController::class,'showAllPrestamos']);
+Route::get('/showPrestamo/{id}', [PrestamosController::class,'showPrestamo']);
 Route::get('/badPrestamo', [PrestamosController::class,'badPrestamo']);

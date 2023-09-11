@@ -28,7 +28,7 @@ class Prestamos extends Model
 
     public static function updateIDPrestamo($id){
         $prestamo = Prestamos::find($id);
-        $prestamo->fecha_devoludion = date("Y/m/d");
+        $prestamo->fecha_devolucion = date("Y/m/d");
         $prestamo->estado = 'Devuelto';
         $prestamo->save();
     }

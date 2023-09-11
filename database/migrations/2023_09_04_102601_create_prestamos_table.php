@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->integer('book_id');
             $table->date('fecha_prestamo');
-            $table->date('fecha_devoludion')->nullable();
+            $table->date('fecha_devolucion')->nullable();
         });
     }
 
