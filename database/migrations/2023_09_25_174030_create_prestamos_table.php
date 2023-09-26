@@ -14,10 +14,16 @@ return new class extends Migration
         Schema::create('prestamos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('user_id');
-            $table->integer('book_id');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->unsignedInteger('book_id');
+            $table->foreign('book_id')->references('id')->on('libros');
+
             $table->date('fecha_prestamo');
             $table->date('fecha_devolucion')->nullable();
+            $table->string('estado');
         });
     }
 

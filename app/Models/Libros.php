@@ -5,13 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-
+use App\Models\Prestamos;
 
 class Libros extends Model
 {
     use HasFactory;
 
-    public static function create(Request $request){
+    public function prestamos() {
+        return $this->belongsTo(Prestamos::class , 'book_id', 'id');
+    }
+
+    public function create(Request $request){
         $libro = New Libros();
         $libro->titulo = $request->input('titulo');
         $libro->autor = $request->input('autor');
@@ -28,7 +32,7 @@ class Libros extends Model
         $libro->delete();
     }
 
-    public static function updateID($id, Request $request){
+    public function updateID($id, Request $request){
         $libro = Libros::find($id);
         $libro->titulo = $request->input('titulo');
         $libro->autor = $request->input('autor');
@@ -37,7 +41,7 @@ class Libros extends Model
         $libro->save();
     }
 
-    public static function updateAlquiler($id){
+    public function updateAlquiler($id){
         $libro = Libros::find($id);
         if($libro->disponibilidad === 'Disponible')
             $libro->disponibilidad = 'No disponible';
@@ -46,11 +50,33 @@ class Libros extends Model
         $libro->save();
     }
 
-    public static function allLibros(){
+    public function allLibros(){
         return Libros::all();
     }
 
-    public static function FindLibroID($id){
+    public function findLibroID($id){
         return Libros::find($id);
+    }
+
+    public function findGenero($genero){
+        return Libros::where('genero' , '=' , $genero)
+        ->get();
+    }
+
+    public function findTitulo($titulo){
+        return Libros::where('titulo' , '=' , $titulo)
+        ->get();
+    }
+
+    public function createValores($titulo, $autor, $año, $genero){
+        $libro = New Libros();
+        $libro->titulo = $titulo;
+        $libro->autor = $autor;
+        $libro->año = $año;
+        $libro->genero = $genero;
+        $libro->disponibilidad = 'Disponible';
+        $libro->save();
+
+        return $libro;
     }
 }

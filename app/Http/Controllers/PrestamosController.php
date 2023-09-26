@@ -4,39 +4,53 @@ namespace App\Http\Controllers;
 
 use App\Models\Libros;
 use App\Models\Prestamos;
+use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
 
 class PrestamosController extends Controller
 {
+
+    protected $libro;
+    protected $prestamo;
+    protected $user;
+
+    public function __construct(Libros $libro, Prestamos $prestamo, User $user) {
+        $this->libro = $libro;
+        $this->prestamo = $prestamo;
+        $this->user = $user;
+    }
+
     public function updatePrestamo($id){
-        $prestamo = Prestamos::FindPrestamoID($id);
+        $prestamo = $this->prestamo->FindPrestamoID($id);
         $libro_id = $prestamo->book_id;
-        Libros::updateAlquiler($libro_id);
-        Prestamos::updateIDPrestamo($id);
+        $this->libro->updateAlquiler($libro_id);
+        $this->prestamo->updateIDPrestamo($id);
         return Redirect::to('/showPrestamos');
     }
 
     public function deletePrestamo($id){
-        $prestamo = Prestamos::FindPrestamoID($id);
+        $prestamo = $this->prestamo->FindPrestamoID($id);
         if($prestamo->estado === 'Alquilado'){
             $book_id = $prestamo->book_id;
-            Libros::updateAlquiler($book_id);
+            $this->libro->updateAlquiler($book_id);
         }
-        Prestamos::destroyPrestamo($id);
-
+        $this->prestamo->destroyPrestamo($id);
         return Redirect::to('/showPrestamos');
     }
 
     public function addPrestamo($id){
-        $libro = Libros::FindLibroID($id);
+        $libro = $this->libro->findLibroID($id);
+        $user = $this->user->showUser();
+
         if($libro->disponibilidad === 'Disponible'){
-            $user_id= '1';
+            $user_id= $user->id;
             $book_id= $libro->id;
             $fecha_prestamo = date("Y/m/d");
             $estado = 'Alquilado';
 
-            Prestamos::createPrestamo($user_id, $book_id, $fecha_prestamo, $estado);
-            Libros::updateAlquiler($id);
+            $this->prestamo->createPrestamo($user_id, $book_id, $fecha_prestamo, $estado);
+            $this->libro->updateAlquiler($id);
         }
         else
             return view('alertBad');
@@ -45,15 +59,34 @@ class PrestamosController extends Controller
     }
 
     public function showAllPrestamos(){
-        $prestamos = Prestamos::allPrestamos();
-        return view('prestamos\showPrestamos')->with('prestamos', $prestamos);
+        $user = $this->user->showUser();
+        if($user->rol == 'Admin'){
+            $prestamos = $this->prestamo->allPrestamos();
+            return view('prestamos\showPrestamos' , ['prestamos' => $prestamos, 'user' => $user]);
+        }else{
+            $prestamos = PrestamosController::showPrestamoUser();
+            return view('prestamos\showPrestamos', ['prestamos' => $prestamos]);
+        }
+    }
+
+    public function showAllPrestamosUsuario(Request $request){
+        $user = $this->user->showUser();
+        $allPrestamosUsuario = $this->prestamo->findPrestamoUsuario($request->input('user_id'));
+        return view('prestamos\showPrestamos', ['prestamos' => $allPrestamosUsuario, 'user' => $user]);
     }
 
     public function showPrestamo($id){
-        $prestamo = Prestamos::FindPrestamoID($id);
+        $prestamo = $this->prestamo->FindPrestamoID($id);
         $libro_id = $prestamo->book_id;
-        $libro = Libros::FindLibroID($libro_id);
+        $libro = $this->libro->findLibroID($libro_id);
         return view('prestamos\showPrestamo', ['libro' => $libro, 'prestamo'=> $prestamo]);
+    }
+
+    public function showPrestamoUser(){
+        $user = $this->user->showUser();
+        $prestamos = $this->prestamo->where('user_id' , '=' , $user->id)
+        ->get();
+        return $prestamos;
     }
 
     public function badPrestamo(){

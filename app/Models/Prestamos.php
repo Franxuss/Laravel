@@ -4,14 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Libros;
+use App\Models\User;
+
 
 class Prestamos extends Model
 {
     use HasFactory;
 
-    public static function createPrestamo($user_id, $book_id, $fecha_prestamo, $estado){
-        $prestamo = New Prestamos();
+    protected $table = 'prestamos';
 
+    public function libro(){
+        return $this->belongsTo(Libros::class, 'book_id', 'id');
+    }
+
+    public function usuario(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public static function createPrestamo( $user_id, $book_id, $fecha_prestamo, $estado){
+        $prestamo = New Prestamos();
         $prestamo->user_id = $user_id;
         $prestamo->book_id = $book_id;
         $prestamo->fecha_prestamo = $fecha_prestamo;
@@ -39,5 +51,10 @@ class Prestamos extends Model
 
     public static function FindPrestamoID($id){
         return Prestamos::find($id);
+    }
+
+    public static function findPrestamoUsuario($user_id){
+        return Prestamos::where('user_id' , '=' , $user_id)
+        ->get();
     }
 }

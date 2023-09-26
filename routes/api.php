@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\LibrosController;
+use App\Http\Middleware\primerMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/showLibrosAPI', [LibrosController::class, 'showLibrosAPI']);
+Route::get('/showLibrosAPIID/{id}', [LibrosController::class, 'showLibrosAPIID']);
+Route::post('/showLibrosAPIID_Post', [LibrosController::class, 'showLibrosAPIID_Post']);
+
+Route::post('/addLibroAPI', [LibrosController::class, 'addLibroAPI'])->middleware('auth:sanctum');
+Route::post('/findGeneroAPI', [LibrosController::class, 'findGeneroAPI'])->middleware('auth:sanctum');
+
+Route::post('login', [AuthController::class, 'login']);
